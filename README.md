@@ -65,13 +65,11 @@ docker-compose exec backend php artisan migrate
 # (Optional) Seed the database with sample data
 docker-compose exec backend php artisan db:seed
 
-### 5. Access the Application
+5. Access the Application
 
-- **Frontend (React)**: http://localhost:3000
-- **Backend API (Laravel)**: http://localhost:8000
-- **API Documentation (Swagger)**: http://localhost:8000/api/documentation
-- **API Overview Page**: http://localhost:8000/api.html
-- **Database**: localhost:3307
+- Frontend (React): http://localhost:3000
+- Backend API (Laravel): http://localhost:8000
+- Database: localhost:3307
 
 Development Commands
 
@@ -134,139 +132,7 @@ To connect from external tools (like MySQL Workbench, phpMyAdmin):
 - Username: root
 - Password: password
 
-## 📚 API Documentation
-
-This project includes comprehensive API documentation using **Swagger/OpenAPI 3.0** specification.
-
-### 🔗 Access API Documentation
-
-- **Swagger UI**: http://localhost:8000/api/documentation
-- **JSON Schema**: http://localhost:8000/docs/api-docs.json
-- **YAML Schema**: http://localhost:8000/docs/api-docs.yaml
-
-### 📋 API Overview
-
-The API provides the following endpoints:
-
-#### Authentication Endpoints
-- `POST /api/register` - Register a new user
-- `POST /api/login` - Login user and get access token
-- `POST /api/logout` - Logout user (revoke token)
-- `GET /api/user` - Get authenticated user information
-
-#### Event Endpoints
-- `GET /api/events` - Get all events (with search, filter, pagination)
-- `GET /api/events/{id}` - Get specific event details
-- `POST /api/events` - Create new event (Admin only)
-- `PUT /api/events/{id}` - Update event (Admin only)
-- `DELETE /api/events/{id}` - Delete event (Admin only)
-
-#### Registration Endpoints
-- `POST /api/events/{id}/register` - Register for an event
-- `GET /api/registrations` - Get user's registrations
-- `DELETE /api/registrations/{id}` - Cancel registration
-
-### 🔐 Authentication
-
-The API uses **Bearer Token** authentication (Laravel Sanctum):
-
-```bash
-# Login to get token
-curl -X POST http://localhost:8000/api/login \
-  -H "Content-Type: application/json" \
-  -d '{"email": "user@example.com", "password": "password"}'
-
-# Use token in subsequent requests
-curl -X GET http://localhost:8000/api/user \
-  -H "Authorization: Bearer YOUR_TOKEN_HERE"
-```
-
-### 📝 API Examples
-
-#### Register a New User
-```bash
-curl -X POST http://localhost:8000/api/register \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "John Doe",
-    "email": "john@example.com",
-    "password": "password123",
-    "password_confirmation": "password123"
-  }'
-```
-
-#### Get All Events
-```bash
-curl -X GET "http://localhost:8000/api/events?search=tech&location=center&page=1"
-```
-
-#### Create an Event (Admin)
-```bash
-curl -X POST http://localhost:8000/api/events \
-  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "Tech Conference 2025",
-    "description": "Annual technology conference",
-    "location": "Convention Center",
-    "start_date": "2025-09-01 09:00:00",
-    "end_date": "2025-09-01 17:00:00",
-    "max_participants": 100
-  }'
-```
-
-#### Register for an Event
-```bash
-curl -X POST http://localhost:8000/api/events/1/register \
-  -H "Authorization: Bearer YOUR_TOKEN"
-```
-
-### 🔄 Response Format
-
-All API responses follow a consistent JSON format:
-
-#### Success Response
-```json
-{
-  "message": "Success message",
-  "data": { ... },
-  "meta": { ... }
-}
-```
-
-#### Error Response
-```json
-{
-  "message": "Error message",
-  "errors": {
-    "field": ["Validation error message"]
-  }
-}
-```
-
-### 📊 Pagination
-
-List endpoints support pagination:
-```json
-{
-  "current_page": 1,
-  "data": [...],
-  "total": 50,
-  "per_page": 10,
-  "last_page": 5
-}
-```
-
-### 🛠️ Regenerate Documentation
-
-To regenerate the API documentation after making changes:
-
-```bash
-# Regenerate Swagger documentation
-docker-compose exec backend php artisan l5-swagger:generate
-```
-
-## 🔧 Configuration Details
+Configuration Details
 
 Environment Variables
 
@@ -326,7 +192,7 @@ docker-compose logs mysql
 # Follow logs in real-time
 docker-compose logs -f backend
 
-Testing
+## 🧪 Testing
 
 ### Backend Tests
 ```bash
@@ -342,7 +208,8 @@ docker-compose exec backend php artisan test --filter=TestName
 # Run React tests
 docker-compose exec frontend npm test
 ```
-CI/CD Pipeline
+
+## 🚀 CI/CD Pipeline
 
 This project includes a comprehensive CI/CD pipeline using GitHub Actions that automatically:
 
@@ -392,7 +259,9 @@ The CI/CD configuration includes:
 ### Manual Deployment
 If you prefer manual deployment, you can trigger workflows manually from the GitHub Actions tab.
 
-Project Structure
+## 📁 Project Structure
+
+```
 prodigious-event-management/
 ├── .github/                # GitHub Actions CI/CD workflows
 │   └── workflows/          # CI/CD pipeline definitions
@@ -408,3 +277,4 @@ prodigious-event-management/
 ├── nginx/                  # Nginx configuration
 ├── docker-compose.yml      # Docker services
 └── README.md              # This file
+```
