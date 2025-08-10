@@ -15,24 +15,24 @@ The system is built using a modern full-stack architecture:
 
 Before running this system, ensure you have the following installed on your machine:
 
-1. Docker Desktop (v4.0 or higher)
+### 1. Docker Desktop (v4.0 or higher)
    - Download from: https://docs.docker.com/desktop/
    - Make sure Docker Engine is running
 
-2. Git (for cloning the repository)
+### 2. Git (for cloning the repository)
    - Download from: https://git-scm.com/downloads
 
-3. System Requirements:
+### 3. System Requirements:
    - Windows 10/11, macOS 10.15+, or Linux
    - Minimum 4GB RAM (8GB recommended)
    - At least 5GB free disk space
 
-1. Clone the Repository
+### 1. Clone the Repository
 
 git clone https://github.com/afiqbaharuddin/prodigious-event-management.git
 cd prodigious-event-management
 
-2. Environment Setup
+### 2. Environment Setup
 
 Backend Configuration
 # Navigate to backend directory
@@ -44,7 +44,7 @@ cp .env.example .env
 # Return to root directory
 cd ..
 
-3. Build and Run with Docker
+### 3. Build and Run with Docker
 
 # Build and start all services
 docker-compose up --build
@@ -52,7 +52,7 @@ docker-compose up --build
 # Or run in detached mode (background)
 docker-compose up -d --build
 
-4. Initialize Laravel Application
+### 4. Initialize Laravel Application
 
 After the containers are running, set up the Laravel backend:
 
@@ -65,7 +65,7 @@ docker-compose exec backend php artisan migrate
 # (Optional) Seed the database with sample data
 docker-compose exec backend php artisan db:seed
 
-5. Access the Application
+### 5. Access the Application
 
 - Frontend (React): http://localhost:3000
 - Backend API (Laravel): http://localhost:8000
