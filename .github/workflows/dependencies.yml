@@ -1,0 +1,60 @@
+name: Dependency Updates
+
+on:
+  schedule:
+    - cron: '0 0 * * 1' # Weekly on Monday
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-dependencies:
+    name: Update Dependencies
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Update Composer dependencies
+      working-directory: ./backend
+      run: |
+        composer update
+        composer audit
+
+    - name: Update npm dependencies
+      working-directory: ./frontend
+      run: |
+        npm update
+        npm audit --audit-level=high
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: 'chore: update dependencies'
+        title: 'chore: Weekly dependency updates'
+        body: |
+          ## Dependency Updates
+          
+          This PR contains weekly dependency updates for both backend and frontend.
+          
+          ### Backend (Composer)
+          - Updated PHP dependencies
+          - Ran security audit
+          
+          ### Frontend (npm)
+          - Updated Node.js dependencies
+          - Ran security audit
+          
+          Please review the changes and ensure all tests pass before merging.
+        branch: chore/dependency-updates
+        delete-branch: true

@@ -28,6 +28,6 @@ Route::middleware('auth:sanctum')->group(function () {
     
     // Registration routes
     Route::post('/events/{event}/register', [RegistrationController::class, 'register']);
-    Route::get('/my-registrations', [RegistrationController::class, 'myRegistrations']);
+    Route::get('/registrations', [RegistrationController::class, 'myRegistrations']);
     Route::delete('/registrations/{registration}', [RegistrationController::class, 'cancel']);
 });
